@@ -1,0 +1,8 @@
+flask
+wakeonlan
+scapy
+
+# Tools
+black
+mypy
+
