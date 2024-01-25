@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home HP</title>
+  </head>
+  <body>
+    <h1>Home HP</h1>
+    <h2>Registered Devices</h2>
+    <ul>
+      {% for device in registered_devices %}
+      <li>{{ device.name }} - {{ device.ip }}</li>
+      {% endfor %}
+    </ul>
+    <h2>Scanned Devices</h2>
+    <ul>
+      {% for device in scanned_devices %}
+      <li>{{ device.hostname }} - {{ device.ip }} - {{device.mac}}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

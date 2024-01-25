@@ -1,8 +1,9 @@
 flask
+sqlalchemy
 wakeonlan
 scapy
+python-dotenv
 
 # Tools
 black
 mypy
-

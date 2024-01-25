@@ -20,11 +20,21 @@ def scan(ip, iface=None):
     return devices
 
 
+def get_local_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+        return local_ip
+    except Exception as e:
+        return None
+    
 def get_lan_devices(target_ip=None, iface=None):
     if target_ip is None:
-        my_ip = socket.gethostbyname(socket.gethostname())
+        my_ip = get_local_ip()
         gateway = ".".join(my_ip.split(".")[0:-1])
-        target_ip = f"{gateway}/24"
+        target_ip = f"{gateway}.1/24"
 
     devices = scan(target_ip, iface=iface)
 
