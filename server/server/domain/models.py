@@ -13,7 +13,7 @@ class IPDevice(Base):
     def get_by_id(id):
         return session.query(IPDevice).filter(IPDevice.id == id).first()
 
-    def get_all():
+    def get_all():  # type: ignore
         return session.query(IPDevice).all()
 
     def save(self):

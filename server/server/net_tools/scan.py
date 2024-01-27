@@ -33,13 +33,15 @@ def get_local_ip():
     except Exception as e:
         return None
 
+
 def ping_to_device(ip_address, port=80):
     try:
-        result = ping(ip_address, timeout=2, unit='s')
+        result = ping(ip_address, timeout=2, unit="s")
         return result is not None
     except Exception as e:
         print(f"Error during ping: {e}")
         return False
+
 
 @memoize()
 def ping_all_devices(ip_addresses):
@@ -48,6 +50,7 @@ def ping_all_devices(ip_addresses):
         results = list(executor.map(ping_to_device, ip_addresses))
         ret.extend(results)
     return ret
+
 
 @memoize()
 def get_lan_devices(target_ip=None, iface=None):

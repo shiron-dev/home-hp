@@ -4,8 +4,6 @@ import net_tools
 
 main = Blueprint("main", __name__)
 
-scanned_devices = []
-
 
 @main.route("/")
 def index():
