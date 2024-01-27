@@ -2,9 +2,11 @@ import threading
 import time
 import json
 
+
 class MutableVariable:
     def __init__(self, value):
         self.value = value
+
 
 def memoize(expiration_time=60):
     def decorator(func):
@@ -15,10 +17,12 @@ def memoize(expiration_time=60):
         def cleanup():
             current_time = time.time()
             with lock:
-                keys_to_delete = [key for key, (timestamp, _) in cache.items() if current_time - timestamp > expiration_time]
+                keys_to_delete = [
+                    key for key, (timestamp, _) in cache.items() if current_time - timestamp > expiration_time
+                ]
                 for key in keys_to_delete:
                     del cache[key]
-        
+
         def update_cache(args, kwargs):
             key = json.dumps(args)
             cache[key] = (time.time(), func(*args, **kwargs))

@@ -1,5 +1,6 @@
 from scapy.all import ARP, Ether, srp
 import socket
+from util import memoize
 
 
 def scan(ip, iface=None):
@@ -29,7 +30,9 @@ def get_local_ip():
         return local_ip
     except Exception as e:
         return None
-    
+
+
+@memoize()
 def get_lan_devices(target_ip=None, iface=None):
     if target_ip is None:
         my_ip = get_local_ip()
@@ -37,5 +40,4 @@ def get_lan_devices(target_ip=None, iface=None):
         target_ip = f"{gateway}.1/24"
 
     devices = scan(target_ip, iface=iface)
-
     return devices

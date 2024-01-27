@@ -11,8 +11,6 @@ db_url = f"sqlite://{db_path}"
 
 ENGINE = create_engine(db_url, echo=True)
 
-session = scoped_session(
-    sessionmaker(autocommit=False, autoflush=False, bind=ENGINE)
-)
+session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=ENGINE))
 
 Base = declarative_base()
