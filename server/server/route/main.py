@@ -10,6 +10,9 @@ scanned_devices = []
 @main.route("/")
 def index():
     devices = IPDevice.get_all()
+    status = net_tools.ping_all_devices([device.ip for device in devices])
+    for i in range(len(devices)):
+        devices[i].status = status[i]
     scanned = net_tools.get_lan_devices()
     return render_template("index.html", registered_devices=devices, scanned_devices=scanned)
 

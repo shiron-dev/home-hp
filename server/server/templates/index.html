@@ -11,7 +11,11 @@
     <ul>
       {% for device in registered_devices %}
       <li>
-        {{ device.id }}: {{device.status}} {{ device.name }} - {{ device.ip }}
+        {{ device.id }}: {% if device.status %}
+        <span style="color: green">Online</span>
+        {% else %}
+        <span style="color: red">Offline</span>
+        {% endif %} {{ device.name }} - {{ device.ip }}
         <form method="post" action="/wol">
           <input type="hidden" name="id" value="{{ device.id }}" />
           <input type="submit" value="Wake On" />

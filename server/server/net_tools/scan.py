@@ -1,6 +1,8 @@
 from scapy.all import ARP, Ether, srp
 import socket
 from util import memoize
+from ping3 import ping
+import concurrent.futures
 
 
 def scan(ip, iface=None):
@@ -31,6 +33,21 @@ def get_local_ip():
     except Exception as e:
         return None
 
+def ping_to_device(ip_address, port=80):
+    try:
+        result = ping(ip_address, timeout=2, unit='s')
+        return result is not None
+    except Exception as e:
+        print(f"Error during ping: {e}")
+        return False
+
+@memoize()
+def ping_all_devices(ip_addresses):
+    ret = []
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        results = list(executor.map(ping_to_device, ip_addresses))
+        ret.extend(results)
+    return ret
 
 @memoize()
 def get_lan_devices(target_ip=None, iface=None):

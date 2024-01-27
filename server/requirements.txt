@@ -3,6 +3,7 @@ sqlalchemy
 wakeonlan
 scapy
 python-dotenv
+ping3
 
 # Tools
 black
