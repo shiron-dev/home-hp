@@ -1,0 +1,13 @@
+flask
+sqlalchemy
+wakeonlan
+scapy
+python-dotenv
+ping3
+
+# Tools
+black
+mypy
+
+# Stubs
+sqlalchemy-stubs

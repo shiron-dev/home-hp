@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home HP</title>
+  </head>
+  <body>
+    <h1>Home HP</h1>
+    <h2>Registered Devices</h2>
+    <ul>
+      {% for device in registered_devices %}
+      <li>
+        {{ device.id }}: {% if device.status %}
+        <span style="color: green">Online</span>
+        {% else %}
+        <span style="color: red">Offline</span>
+        {% endif %} {{ device.name }} - {{ device.ip }}
+        <form method="post" action="/wol">
+          <input type="hidden" name="id" value="{{ device.id }}" />
+          <input type="submit" value="Wake On" />
+        </form>
+        <form method="get" action="/update">
+          <input type="hidden" name="id" value="{{ device.id }}" />
+          <input type="submit" value="Update" />
+        </form>
+        <form method="post" action="/delete">
+          <input type="hidden" name="id" value="{{ device.id }}" />
+          <input type="submit" value="Delete" />
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    <h2>Scanned Devices</h2>
+    <ul>
+      {% for device in scanned_devices %}
+      <li style="margin-bottom: 1em">
+        {{ device.hostname }} - {{ device.ip }} - {{device.mac}}
+        <br />
+        <form method="post" action="/register">
+          <input type="hidden" name="ip" value="{{ device.ip }}" />
+          <input type="hidden" name="mac" value="{{ device.mac }}" />
+          <input type="hidden" name="hostname" value="{{ device.hostname }}" />
+          <label for="name">Device name:</label>
+          <input type="text" name="name" required />
+          <input type="submit" value="Register" />
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    <div>
+      <h2>Register New Device</h2>
+      <form method="post" action="/register">
+        <label for="ip">IP:</label>
+        <input type="text" name="ip" required />
+        <label for="mac">Mac:</label>
+        <input type="text" name="mac" required />
+        <label for="hostname">Host name:</label>
+        <input type="text" name="hostname" required />
+        <label for="name">Device name:</label>
+        <input type="text" name="name" required />
+        <input type="submit" value="Register" />
+      </form>
+    </div>
+  </body>
+</html>
