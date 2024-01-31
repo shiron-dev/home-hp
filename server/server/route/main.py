@@ -37,7 +37,7 @@ def delete():
 @main.route("/wol", methods=["POST"])
 def wol():
     device = IPDevice.get_by_id(request.form["id"])
-    net_tools.send_wal(device.mac, device.ip)
+    net_tools.send_wal(device.mac)
     return redirect("/")
 
 
