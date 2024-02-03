@@ -5,13 +5,17 @@ import net_tools
 main = Blueprint("main", __name__)
 
 
+scan_manager = net_tools.ScanManager()
+scan_manager.start([device.ip for device in IPDevice.get_all()])
+
 @main.route("/")
 def index():
     devices = IPDevice.get_all()
-    status = net_tools.ping_all_devices([device.ip for device in devices])
+    scan_manager.set_scan_ips([device.ip for device in devices])
+    status = scan_manager.get_status([device.ip for device in devices])
     for i in range(len(devices)):
         devices[i].status = status[i]
-    scanned = net_tools.get_lan_devices()
+    scanned = scan_manager.get_lan_devices()
     return render_template("index.html", registered_devices=devices, scanned_devices=scanned)
 
 

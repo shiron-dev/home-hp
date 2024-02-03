@@ -4,6 +4,7 @@ wakeonlan
 scapy
 python-dotenv
 ping3
+apscheduler
 
 # Tools
 black
