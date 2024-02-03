@@ -28,6 +28,7 @@ def memoize(expiration_time=60):
             cache[key] = (time.time(), func(*args, **kwargs))
 
         def wrapper(*args, **kwargs):
+            print("******** memoize",func, args, kwargs)
             key = json.dumps(args)
             cleanup()
             if key not in cache:
